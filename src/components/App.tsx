@@ -4,6 +4,8 @@ import { store } from '../state'
 import { UserList } from './UserList';
 import { collection, getDocs } from "@firebase/firestore"
 import { database } from '../config/firebase';
+import MainContent from './MainContent';
+
 
 const users = [
   {
@@ -48,15 +50,14 @@ const App = () => {
   
 
   return <Provider store={store}>
-    <div>
-      <h1>users</h1>
-      <ul>
+    <MainContent>
+      {/* <ul>
       {users && users.map((user) => (
         <li>{user.first_name}</li>
       ))}
-      </ul>
+      </ul> */}
       <UserList />
-    </div>
+    </MainContent>
   </Provider>;
   
 }

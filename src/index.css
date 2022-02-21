@@ -1,13 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  line-height: 20px;
+  font-size: 13px;
+  background-color: #f5f5f4;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+a {
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-size: inherit;
+}
+
+input.middle:focus {
+  outline-width: 0;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+div:focus,
+button:focus {
+  outline: none;
+}
+
+.menu {
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 90vw;
+  position: fixed;
+  visibility: hidden;
+  transition: all 0.4s ease-in-out;
+  transform: translateX(-100%);
+  z-index: 490;
+}
+
+.active {
+  pointer-events: auto;
+  visibility: visible;
+  transition: all 0.25s ease;
+  transform: translateX(0);
+}
+
