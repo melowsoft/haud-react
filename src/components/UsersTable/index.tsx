@@ -1,4 +1,5 @@
 import React, { FC, useState} from 'react'
+import { Link } from 'react-router-dom'
 
 import { Wrapper } from "./style"
 
@@ -8,8 +9,9 @@ users: any[]
  const UsersTable: FC<UsersTableProps> = ({users}) => {
 
     return (
-        <Wrapper>
-						<button className='add-button'>Add user</button>
+      <Wrapper>
+        <Link to="/add-user">
+						<button className='add-button'>Add user</button></Link>
             <div className="web-table">
                 <div className="table-header">
                     <div className="header-item">

@@ -3,14 +3,13 @@ import { useActions } from "../../hooks/useAction"
 import UsersTable from '../UsersTable';
 import { useTypedSelector } from '../../hooks/useTypedSelector' 
 
-export const UserList = () => {
+ const UserList = () => {
     const { getUsers, addUser } = useActions();
     const { data, error, loading } = useTypedSelector((state) => state.users)
 
 
   useEffect(() => {
       getUsers()
-
   }, [])
 
     return (
@@ -20,3 +19,5 @@ export const UserList = () => {
         </>
     )
 }
+
+export default UserList
