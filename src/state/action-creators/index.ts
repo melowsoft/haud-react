@@ -7,42 +7,12 @@ import { database } from "../../config/firebase";
 // users collection reference
 const usersCollectionRef = collection(database, "users");
 
-// export const searchRepositories = (term: string) => {
-//   return async (dispatch: Dispatch<Action>) => {
-//     dispatch({
-//       type: ActionType.SEARCH_REPOSITORIES,
-//     });
-
-//     try {
-//       const { data } = await axios.get(
-//         "https://registry.npmjs.org/-/v1/search",
-//         {
-//           params: {
-//             text: term,
-//           },
-//         }
-//       );
-
-//       const names = data.objects.map((result: any) => {
-//         return result.package.name;
-//       });
-
-//       dispatch({
-//         type: ActionType.SEARCH_REPOSITORIES_SUCCESS,
-//         payload: names,
-//       });
-//     } catch (err) {
-//       dispatch({
-//         type: ActionType.SEARCH_REPOSITORIES_ERROR,
-//         payload: "Error occured",
-//       });
-//     }
-//   };
-// };
-
 const retrieveUsers = async () => {
   const data = await getDocs(usersCollectionRef);
-  const result = data.docs.map((doc) => ({ ...doc.data() }));
+  const result = data.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+  }));
   return result as User[];
 };
 
@@ -68,7 +38,6 @@ export const getUsers = () => {
 };
 
 export const addUser = (user: User) => {
-  console.log("i am getting called");
   return async (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.ADD_USER,
@@ -76,16 +45,15 @@ export const addUser = (user: User) => {
 
     try {
       console.log(user, "from user function");
-      await addDoc(usersCollectionRef, user);
+      const addResult = await addDoc(usersCollectionRef, user);
+      console.log(addResult, "result of users");
 
       const users = await retrieveUsers();
-      console.log(users, "result of users");
       dispatch({
         type: ActionType.ADD_USER_SUCCESS,
         payload: users,
       });
     } catch (err) {
-      console.log(err, "error message");
       dispatch({
         type: ActionType.ADD_USER_ERROR,
         payload: "Error adding user",

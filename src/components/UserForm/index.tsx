@@ -1,7 +1,7 @@
 import { FC, useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../styled/Input";
-import {useHistory} from  "react-router-dom"
+import { useHistory } from "react-router-dom";
 import {
   Button,
   ButtonWrap,
@@ -12,8 +12,9 @@ import {
 } from "./style";
 import { Country, State } from "country-state-city";
 import { Dropdown } from "../Select";
+import { User } from "../../state/actions";
 
-export type AddUserFormValues = {
+export type UserFormValues = {
   first_name: string;
   last_name: string;
   address_1: string;
@@ -25,16 +26,16 @@ export type AddUserFormValues = {
   contact_number: string;
 };
 
-const AddUserForm: FC<{
-  onSubmit: (value: AddUserFormValues) => Promise<void>;
-}> = ({ onSubmit }) => {
+const UserForm: FC<{
+  onSubmit: (value: UserFormValues) => Promise<void>;
+  user?: User |  undefined | Promise<unknown | undefined>;
+}> = ({ onSubmit, user }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    getValues,
-  } = useForm<AddUserFormValues>();
-    
+    formState: { errors }
+  } = useForm<UserFormValues>();
+  console.log(user, "in user form");
 
   const countriesObj = useMemo(() => {
     const newArr =
@@ -51,15 +52,13 @@ const AddUserForm: FC<{
     const newArr =
       State.getAllStates().map((state, index) => {
         return {
-          value: state.name,
-          label: state.name,
+          value: state.isoCode,
+          label: state.isoCode,
           id: index,
         };
       }) || [];
     return newArr;
   }, []);
-
- 
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -182,4 +181,4 @@ const AddUserForm: FC<{
   );
 };
 
-export default AddUserForm;
+export default UserForm;

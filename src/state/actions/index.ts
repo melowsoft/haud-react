@@ -1,7 +1,7 @@
 import { ActionType } from "../action-types";
 
 export interface User {
-  id: string | number;
+  id?: string | number;
   first_name: string;
   last_name: string;
   address_1: string;
