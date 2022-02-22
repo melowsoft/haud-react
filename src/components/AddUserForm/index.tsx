@@ -1,18 +1,20 @@
-import { FC, useCallback } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../styled/Input";
 import { ErrorText, Form, FormItem } from "./style";
+import { Country } from "country-state-city";
+import { Dropdown } from "../Select";
 
 export type AddUserFormValues = {
   firstName: string;
-    lastName: string;
-    address_1: string;
-    address_2: string;
-    town: string;
-    region: string;
-    country: string;
-    postcode: string;
-    contact_number: string;
+  lastName: string;
+  address_1: string;
+  address_2: string;
+  town: string;
+  region: string;
+  country: string;
+  postcode: string;
+  contact_number: string;
 };
 
 const AddUserForm: FC<{
@@ -24,6 +26,19 @@ const AddUserForm: FC<{
     formState: { errors },
     getValues,
   } = useForm<AddUserFormValues>();
+
+  const countriesObj = useMemo(() => {
+    const newArr = Country.getAllCountries().map((country) => {
+      return {
+        value: country.name,
+        label: country.name,
+        id: country.isoCode,
+      };
+    }) || [];
+    return newArr;
+  }, []);
+
+  console.log(countriesObj, "countries");
 
   const onFormSubmit = useCallback(
     async (data: AddUserFormValues) => {
@@ -79,6 +94,25 @@ const AddUserForm: FC<{
         />
         {errors.address_2 && <ErrorText>{errors.address_2.message}</ErrorText>}
       </FormItem>
+      <FormItem>
+        <label htmlFor="userName">Town:</label>
+        <Input
+          type="text"
+          id="town"
+          placeholder="Town (e.g. Lutton)"
+          {...register("town")}
+        />
+        {errors.town && <ErrorText>{errors.town.message}</ErrorText>}
+      </FormItem>
+      <FormItem>
+        <label htmlFor="userName">Country:</label>
+        <Dropdown
+          id="country"
+          data={countriesObj}
+          {...register("country", { required: "Country is required" })}
+        />
+              {errors.country && <ErrorText>{errors.country.message}</ErrorText>}
+     </FormItem>
       <button type="submit">Add user</button>
     </Form>
   );
