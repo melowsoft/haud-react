@@ -5,7 +5,7 @@ import { Select } from "../styled/select";
 type DropdownProps = {
   id: string;
   initialValue?: string;
-  data: { id: string; label: string; value: number | string }[];
+  data: { id: string | number; label: string; value: number | string }[];
 };
 
 export const Dropdown = forwardRef<HTMLSelectElement, DropdownProps>(

@@ -2,7 +2,7 @@ import { FC, useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../styled/Input";
 import { ErrorText, Form, FormItem } from "./style";
-import { Country } from "country-state-city";
+import { Country, State } from "country-state-city";
 import { Dropdown } from "../Select";
 
 export type AddUserFormValues = {
@@ -28,17 +28,25 @@ const AddUserForm: FC<{
   } = useForm<AddUserFormValues>();
 
   const countriesObj = useMemo(() => {
-    const newArr = Country.getAllCountries().map((country) => {
+    const newArr = Country.getAllCountries().map((country, index) => {
       return {
         value: country.name,
         label: country.name,
-        id: country.isoCode,
+        id: index,
       };
     }) || [];
     return newArr;
   }, []);
-
-  console.log(countriesObj, "countries");
+  const regionsObj = useMemo(() => {
+    const newArr = State.getAllStates().map((state, index) => {
+      return {
+        value: state.name,
+        label: state.name,
+        id: index,
+      };
+    }) || [];
+    return newArr;
+  }, []);
 
   const onFormSubmit = useCallback(
     async (data: AddUserFormValues) => {
@@ -104,6 +112,15 @@ const AddUserForm: FC<{
         />
         {errors.town && <ErrorText>{errors.town.message}</ErrorText>}
       </FormItem>
+      <FormItem>
+        <label htmlFor="userName">Region:</label>
+        <Dropdown
+          id="region"
+          data={regionsObj}
+          {...register("region", { required: "Region is required" })}
+        />
+              {errors.region && <ErrorText>{errors.region.message}</ErrorText>}
+     </FormItem>
       <FormItem>
         <label htmlFor="userName">Country:</label>
         <Dropdown
