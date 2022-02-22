@@ -1,7 +1,6 @@
-import { FC, useCallback, useMemo } from "react";
+import { FC, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../styled/Input";
-import { useHistory } from "react-router-dom";
 import {
   Button,
   ButtonWrap,
@@ -13,6 +12,7 @@ import {
 import { Country, State } from "country-state-city";
 import { Dropdown } from "../Select";
 import { User } from "../../state/actions";
+import { DocumentData } from "@firebase/firestore";
 
 export type UserFormValues = {
   first_name: string;
@@ -28,12 +28,12 @@ export type UserFormValues = {
 
 const UserForm: FC<{
   onSubmit: (value: UserFormValues) => Promise<void>;
-  user?: User |  undefined | Promise<unknown | undefined>;
+  user?: DocumentData | undefined;
 }> = ({ onSubmit, user }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<UserFormValues>();
   console.log(user, "in user form");
 
@@ -66,6 +66,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="userName">First name:</label>
           <Input
+            defaultValue={user?.first_name}
             type="text"
             id="first_name"
             placeholder="First name (e.g. John)"
@@ -78,6 +79,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="userName">Last name:</label>
           <Input
+            defaultValue={user?.last_name}
             type="text"
             id="last_name"
             placeholder="Last name (e.g. Doe)"
@@ -93,6 +95,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="userName">Address 1:</label>
           <Input
+            defaultValue={user?.address_1}
             type="text"
             id="address_1"
             placeholder="Address 1 (e.g. 123 Main St)"
@@ -105,6 +108,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="userName">Address 2:</label>
           <Input
+            defaultValue={user?.address_2}
             type="text"
             id="address_2"
             placeholder="Address 2 (e.g. 123 Main St)"
@@ -120,6 +124,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="userName">Town:</label>
           <Input
+            defaultValue={user?.town}
             type="text"
             id="town"
             placeholder="Town (e.g. Lutton)"
@@ -130,6 +135,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="userName">Region:</label>
           <Dropdown
+            initialValue={user?.region}
             id="region"
             data={regionsObj}
             {...register("region", { required: "Region is required" })}
@@ -138,10 +144,13 @@ const UserForm: FC<{
         </FormItem>
       </Divider>
 
+      
+
       <Divider>
         <FormItem>
           <label htmlFor="userName">Country:</label>
           <Dropdown
+            initialValue={user?.country}
             id="country"
             data={countriesObj}
             {...register("country", { required: "Country is required" })}
@@ -151,6 +160,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="userName">Post code:</label>
           <Input
+            defaultValue={user?.post_code}
             type="text"
             id="post_code"
             placeholder="Post code (e.g. 12345)"
@@ -164,6 +174,7 @@ const UserForm: FC<{
       <FormItem>
         <label htmlFor="userName">Contact Number:</label>
         <Input
+          defaultValue={user?.contact_number}
           type="text"
           id="contact_number"
           placeholder="Contact number (e.g. 017843438993)"
@@ -175,7 +186,7 @@ const UserForm: FC<{
       </FormItem>
 
       <ButtonWrap>
-        <Button type="submit">Add user</Button>
+        <Button type="submit">Submit</Button>
       </ButtonWrap>
     </Form>
   );

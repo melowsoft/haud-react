@@ -1,7 +1,15 @@
 import { Dispatch } from "redux";
 import { ActionType } from "../action-types";
 import { Action, User } from "../actions";
-import { collection, getDocs, addDoc } from "@firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  DocumentData,
+  updateDoc,
+  deleteDoc,
+} from "@firebase/firestore";
 import { database } from "../../config/firebase";
 
 // users collection reference
@@ -23,6 +31,7 @@ export const getUsers = () => {
     });
 
     try {
+      //retrieve  users
       const users = await retrieveUsers();
       dispatch({
         type: ActionType.GET_USERS_SUCCESS,
@@ -44,10 +53,10 @@ export const addUser = (user: User) => {
     });
 
     try {
-      console.log(user, "from user function");
       const addResult = await addDoc(usersCollectionRef, user);
       console.log(addResult, "result of users");
 
+      //retrieve updated users
       const users = await retrieveUsers();
       dispatch({
         type: ActionType.ADD_USER_SUCCESS,
@@ -56,6 +65,60 @@ export const addUser = (user: User) => {
     } catch (err) {
       dispatch({
         type: ActionType.ADD_USER_ERROR,
+        payload: "Error adding user",
+      });
+    }
+  };
+};
+
+export const editUser = (updatedUser: DocumentData, id: any) => {
+  console.log(id, "before call")
+  return async (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.EDIT_USER,
+    });
+
+    try {
+      const docRef = doc(database, "users", id);
+      await updateDoc(docRef, updatedUser);
+  
+      //retrieve updated users
+      const users = await retrieveUsers();
+      dispatch({
+        type: ActionType.EDIT_USER_SUCCESS,
+        payload: users,
+      });
+    } catch (err) {
+      console.log(err, "error in edit user")
+      dispatch({
+        type: ActionType.EDIT_USER_ERROR,
+        payload: "Error adding user",
+      });
+    }
+  };
+};
+
+export const deleteUser = (id: any) => {
+  console.log(id, "before call")
+  return async (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.DELETE_USER,
+    });
+
+    try {
+      const docRef = doc(database, "users", id);
+      await deleteDoc(docRef);
+  
+      //retrieve updated users
+      const users = await retrieveUsers();
+      dispatch({
+        type: ActionType.DELETE_USER_SUCCESS,
+        payload: users,
+      });
+    } catch (err) {
+      console.log(err, "error in edit user")
+      dispatch({
+        type: ActionType.DELETE_USER_ERROR,
         payload: "Error adding user",
       });
     }

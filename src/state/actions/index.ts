@@ -1,4 +1,5 @@
 import { ActionType } from "../action-types";
+import {DocumentData} from "@firebase/firestore";
 
 export interface User {
   id?: string | number;
@@ -12,17 +13,7 @@ export interface User {
   post_code: string;
   contact_number: string;
 }
-interface AddUserAction {
-  type: ActionType.ADD_USER;
-}
-interface AddUserActionSuccess {
-  type: ActionType.ADD_USER_SUCCESS;
-  payload: User[];
-}
-interface AddUserActionError {
-  type: ActionType.ADD_USER_ERROR;
-  payload: string;
-}
+
 interface GetUsersAction {
   type: ActionType.GET_USERS;
 }
@@ -34,6 +25,40 @@ interface GetUsersActionError {
   type: ActionType.GET_USERS_ERROR;
   payload: string;
 }
+interface EditUserAction {
+  type: ActionType.EDIT_USER;
+}
+interface EditUserActionSuccess {
+  type: ActionType.EDIT_USER_SUCCESS;
+  payload: DocumentData[];
+}
+interface EditUserActionError {
+  type: ActionType.EDIT_USER_ERROR;
+  payload: string;
+}
+interface AddUserAction {
+  type: ActionType.ADD_USER;
+}
+interface AddUserActionSuccess {
+  type: ActionType.ADD_USER_SUCCESS;
+  payload: User[];
+}
+interface AddUserActionError {
+  type: ActionType.ADD_USER_ERROR;
+  payload: string;
+}
+interface DeleteUserAction {
+  type: ActionType.DELETE_USER;
+}
+interface DeleteUserActionSuccess {
+  type: ActionType.DELETE_USER_SUCCESS;
+  payload: User[];
+}
+interface DeleteUserActionError {
+  type: ActionType.DELETE_USER_ERROR;
+  payload: string;
+}
+
 
 export type Action =
   | AddUserAction
@@ -41,4 +66,10 @@ export type Action =
   | AddUserActionError
   | GetUsersAction
   | GetUsersActionSuccess
-  | GetUsersActionError;
+  | GetUsersActionError
+  | EditUserAction
+  | EditUserActionSuccess
+  | EditUserActionError
+  | DeleteUserAction
+  | DeleteUserActionSuccess
+  | DeleteUserActionError;

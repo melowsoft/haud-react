@@ -1,10 +1,9 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useState } from "react";
 import UserForm, { UserFormValues } from "../UserForm";
 import { Container, FormTitle, Wrapper } from "./style";
-import { v4 as uuidv4 } from "uuid";
 import { useActions } from "../../hooks/useAction";
 import { useHistory, useParams } from "react-router-dom";
-import { getDoc, doc } from "@firebase/firestore";
+import { getDoc, doc, DocumentData } from "@firebase/firestore";
 import { database } from "../../config/firebase";
 
 interface RouteParams {
@@ -12,7 +11,8 @@ interface RouteParams {
 }
 
 const EditUser = () => {
-  const { addUser } = useActions();
+  const [result, setResult] = useState<DocumentData | undefined>()
+  const {  editUser } = useActions();
   const history = useHistory();
 
   const { id } = useParams<RouteParams>();
@@ -21,32 +21,42 @@ const EditUser = () => {
     history.replace("/");
   }
 
-  const user = useMemo(async () => {
+
+useEffect(() => {
+  let active = true
+  getUserDetails()
+  return () => { active = false }
+
+  async function getUserDetails() {
+    setResult(undefined)
     const docRef = doc(database, "users", id);
     const docSnap = await getDoc(docRef);
-    return docSnap.data();
-  }, [id]);
+    const res = await docSnap.data();
+    setResult(res)
+  }
+}, [id])
   
-
-  console.log(user, "data things");
 
   const onEditUser = useCallback(
     async (values: UserFormValues) => {
-      const newUser = { ...values, id: uuidv4() };
+      const editedUser = { ...values };
+      
       try {
-        addUser(newUser);
+        editUser(editedUser, id);
       } finally {
         history.replace("/");
       }
     },
-    [addUser]
+    [editUser, id, history]
   );
+
+  
 
   return (
     <Wrapper>
       <FormTitle>Edit User Details</FormTitle>
       <Container>
-        <UserForm onSubmit={onEditUser} user={user}/>
+        <UserForm onSubmit={onEditUser} user={result}/>
       </Container>
     </Wrapper>
   );

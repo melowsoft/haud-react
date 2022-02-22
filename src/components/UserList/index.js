@@ -1,22 +1,23 @@
-import React, {useEffect} from 'react'
-import { useActions } from "../../hooks/useAction"
-import UsersTable from '../UsersTable';
-import { useTypedSelector } from '../../hooks/useTypedSelector' 
+import React, { useCallback, useEffect } from "react";
+import { useActions } from "../../hooks/useAction";
+import UsersTable from "../UsersTable";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
- const UserList = () => {
-    const { getUsers } = useActions();
-    const { data, error, loading } = useTypedSelector((state) => state.users)
-
+const UserList = () => {
+  const { getUsers, deleteUser } = useActions();
+  const { data, error, loading } = useTypedSelector((state) => state.users);
 
   useEffect(() => {
-      getUsers()
-  }, [])
+    getAllUsers();
+  }, []);
+    
+   const getAllUsers = useCallback(() => getUsers(), [getUsers]);
 
-    return (
-        <>
-            <UsersTable users={data}/>
-        </>
-    )
-}
+  return (
+    <>
+      <UsersTable users={data} deleteUser={deleteUser} />
+    </>
+  );
+};
 
-export default UserList
+export default UserList;

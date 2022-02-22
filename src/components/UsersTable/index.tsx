@@ -1,13 +1,15 @@
-import React, { FC, useState } from "react";
+import React, { Dispatch, FC } from "react";
 import { Link } from "react-router-dom";
-import { User } from "../../state/actions";
+import { Action } from "../../state/actions";
+import {DocumentData} from "@firebase/firestore"
 
 import { Wrapper } from "./style";
 
 type UsersTableProps = {
   users: any[];
+  deleteUser: (dispatch: Dispatch<Action>) => Promise<void>
 };
-const UsersTable: FC<UsersTableProps> = ({ users }) => {
+const UsersTable: FC<UsersTableProps> = ({ users, deleteUser }) => {
   return (
     <Wrapper>
       <Link to="/add-user">
@@ -27,7 +29,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
           <div className="header-item">Post code</div>
         </div>
 
-        {users.map((user: User) => (
+        {users.map((user: DocumentData) => (
           <div className="table-row" key={user.id}>
             <div className="body-item">
               {user.first_name} {user.last_name}
@@ -40,9 +42,9 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
             <div className="body-item">{user.post_code}</div>
             <div className="body-item">
               <Link to={`/edit-user/${user.id}`}>
-                <span style={{ marginRight: 5 }}>edit</span>
+                <span style={{ marginRight: 5 }}>Edit</span>
               </Link>
-              <span>delete</span>
+              <span onClick={() => deleteUser(user.id)}>Delete</span>
             </div>
           </div>
         ))}
