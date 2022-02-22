@@ -1,22 +1,23 @@
-import { ActionType } from "../action-types"
+import { ActionType } from "../action-types";
 
-interface SearchRepositoriesAction {
-  type: ActionType.SEARCH_REPOSITORIES;
-}
-interface SearchRepositoriesSuccessAction {
-  type: ActionType.SEARCH_REPOSITORIES_SUCCESS;
-  payload: string[];
-}
-interface SearchRepositoriesErrorAction {
-  type: ActionType.SEARCH_REPOSITORIES_ERROR;
-  payload: string;
+export interface User {
+  id: string | number;
+  first_name: string;
+  last_name: string;
+  address_1: string;
+  address_2: string;
+  town: string;
+  region: string;
+  country: string;
+  post_code: string;
+  contact_number: string;
 }
 interface AddUserAction {
   type: ActionType.ADD_USER;
 }
 interface AddUserActionSuccess {
   type: ActionType.ADD_USER_SUCCESS;
-  payload: any[];
+  payload: User[];
 }
 interface AddUserActionError {
   type: ActionType.ADD_USER_ERROR;
@@ -27,20 +28,17 @@ interface GetUsersAction {
 }
 interface GetUsersActionSuccess {
   type: ActionType.GET_USERS_SUCCESS;
-  payload: any[];
+  payload: User[];
 }
 interface GetUsersActionError {
   type: ActionType.GET_USERS_ERROR;
   payload: string;
 }
 
-export type Action =   
-| SearchRepositoriesAction 
-| SearchRepositoriesSuccessAction 
-| SearchRepositoriesErrorAction
-| AddUserAction
-| AddUserActionSuccess
-| AddUserActionError
-| GetUsersAction
-| GetUsersActionSuccess
-| GetUsersActionError;
+export type Action =
+  | AddUserAction
+  | AddUserActionSuccess
+  | AddUserActionError
+  | GetUsersAction
+  | GetUsersActionSuccess
+  | GetUsersActionError;

@@ -4,7 +4,7 @@ import UsersTable from '../UsersTable';
 import { useTypedSelector } from '../../hooks/useTypedSelector' 
 
  const UserList = () => {
-    const { getUsers, addUser } = useActions();
+    const { getUsers } = useActions();
     const { data, error, loading } = useTypedSelector((state) => state.users)
 
 
@@ -15,7 +15,6 @@ import { useTypedSelector } from '../../hooks/useTypedSelector'
     return (
         <>
             <UsersTable users={data}/>
-            <button onClick={() => addUser()}> add user</button>
         </>
     )
 }

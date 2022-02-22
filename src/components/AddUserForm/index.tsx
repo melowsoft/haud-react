@@ -1,19 +1,27 @@
 import { FC, useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../styled/Input";
-import { ErrorText, Form, FormItem } from "./style";
+import {useHistory} from  "react-router-dom"
+import {
+  Button,
+  ButtonWrap,
+  Divider,
+  ErrorText,
+  Form,
+  FormItem,
+} from "./style";
 import { Country, State } from "country-state-city";
 import { Dropdown } from "../Select";
 
 export type AddUserFormValues = {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   address_1: string;
   address_2: string;
   town: string;
   region: string;
   country: string;
-  postcode: string;
+  post_code: string;
   contact_number: string;
 };
 
@@ -26,111 +34,150 @@ const AddUserForm: FC<{
     formState: { errors },
     getValues,
   } = useForm<AddUserFormValues>();
+    
 
   const countriesObj = useMemo(() => {
-    const newArr = Country.getAllCountries().map((country, index) => {
-      return {
-        value: country.name,
-        label: country.name,
-        id: index,
-      };
-    }) || [];
+    const newArr =
+      Country.getAllCountries().map((country, index) => {
+        return {
+          value: country.name,
+          label: country.name,
+          id: index,
+        };
+      }) || [];
     return newArr;
   }, []);
   const regionsObj = useMemo(() => {
-    const newArr = State.getAllStates().map((state, index) => {
-      return {
-        value: state.name,
-        label: state.name,
-        id: index,
-      };
-    }) || [];
+    const newArr =
+      State.getAllStates().map((state, index) => {
+        return {
+          value: state.name,
+          label: state.name,
+          id: index,
+        };
+      }) || [];
     return newArr;
   }, []);
 
-  const onFormSubmit = useCallback(
-    async (data: AddUserFormValues) => {
-      try {
-        await onSubmit(data);
-        //redirect here
-      } finally {
-        //do nothing
-      }
-    },
-    [onSubmit]
-  );
+ 
 
   return (
-    <Form onSubmit={handleSubmit(onFormSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <Divider>
+        <FormItem>
+          <label htmlFor="userName">First name:</label>
+          <Input
+            type="text"
+            id="first_name"
+            placeholder="First name (e.g. John)"
+            {...register("first_name", { required: "First name is required" })}
+          />
+          {errors.first_name && (
+            <ErrorText>{errors.first_name.message}</ErrorText>
+          )}
+        </FormItem>
+        <FormItem>
+          <label htmlFor="userName">Last name:</label>
+          <Input
+            type="text"
+            id="last_name"
+            placeholder="Last name (e.g. Doe)"
+            {...register("last_name", { required: "Last name is required" })}
+          />
+          {errors.last_name && (
+            <ErrorText>{errors.last_name.message}</ErrorText>
+          )}
+        </FormItem>
+      </Divider>
+
+      <Divider>
+        <FormItem>
+          <label htmlFor="userName">Address 1:</label>
+          <Input
+            type="text"
+            id="address_1"
+            placeholder="Address 1 (e.g. 123 Main St)"
+            {...register("address_1", { required: "Address is required" })}
+          />
+          {errors.address_1 && (
+            <ErrorText>{errors.address_1.message}</ErrorText>
+          )}
+        </FormItem>
+        <FormItem>
+          <label htmlFor="userName">Address 2:</label>
+          <Input
+            type="text"
+            id="address_2"
+            placeholder="Address 2 (e.g. 123 Main St)"
+            {...register("address_2")}
+          />
+          {errors.address_2 && (
+            <ErrorText>{errors.address_2.message}</ErrorText>
+          )}
+        </FormItem>
+      </Divider>
+
+      <Divider>
+        <FormItem>
+          <label htmlFor="userName">Town:</label>
+          <Input
+            type="text"
+            id="town"
+            placeholder="Town (e.g. Lutton)"
+            {...register("town")}
+          />
+          {errors.town && <ErrorText>{errors.town.message}</ErrorText>}
+        </FormItem>
+        <FormItem>
+          <label htmlFor="userName">Region:</label>
+          <Dropdown
+            id="region"
+            data={regionsObj}
+            {...register("region", { required: "Region is required" })}
+          />
+          {errors.region && <ErrorText>{errors.region.message}</ErrorText>}
+        </FormItem>
+      </Divider>
+
+      <Divider>
+        <FormItem>
+          <label htmlFor="userName">Country:</label>
+          <Dropdown
+            id="country"
+            data={countriesObj}
+            {...register("country", { required: "Country is required" })}
+          />
+          {errors.country && <ErrorText>{errors.country.message}</ErrorText>}
+        </FormItem>
+        <FormItem>
+          <label htmlFor="userName">Post code:</label>
+          <Input
+            type="text"
+            id="post_code"
+            placeholder="Post code (e.g. 12345)"
+            {...register("post_code")}
+          />
+          {errors.post_code && (
+            <ErrorText>{errors.post_code.message}</ErrorText>
+          )}
+        </FormItem>
+      </Divider>
       <FormItem>
-        <label htmlFor="userName">First name:</label>
+        <label htmlFor="userName">Contact Number:</label>
         <Input
           type="text"
-          id="firstName"
-          placeholder="First name (e.g. John)"
-          {...register("firstName", { required: "First name is required" })}
+          id="contact_number"
+          placeholder="Contact number (e.g. 017843438993)"
+          {...register("contact_number")}
         />
-        {errors.firstName && <ErrorText>{errors.firstName.message}</ErrorText>}
+        {errors.contact_number && (
+          <ErrorText>{errors.contact_number.message}</ErrorText>
+        )}
       </FormItem>
-      <FormItem>
-        <label htmlFor="userName">Last name:</label>
-        <Input
-          type="text"
-          id="lastName"
-          placeholder="Last name (e.g. Doe)"
-          {...register("lastName", { required: "Last name is required" })}
-        />
-        {errors.lastName && <ErrorText>{errors.lastName.message}</ErrorText>}
-      </FormItem>
-      <FormItem>
-        <label htmlFor="userName">Address 1:</label>
-        <Input
-          type="text"
-          id="address_1"
-          placeholder="Address 1 (e.g. 123 Main St)"
-          {...register("address_1", { required: "Address is required" })}
-        />
-        {errors.address_1 && <ErrorText>{errors.address_1.message}</ErrorText>}
-      </FormItem>
-      <FormItem>
-        <label htmlFor="userName">Address 2:</label>
-        <Input
-          type="text"
-          id="address_2"
-          placeholder="Address 2 (e.g. 123 Main St)"
-          {...register("address_2")}
-        />
-        {errors.address_2 && <ErrorText>{errors.address_2.message}</ErrorText>}
-      </FormItem>
-      <FormItem>
-        <label htmlFor="userName">Town:</label>
-        <Input
-          type="text"
-          id="town"
-          placeholder="Town (e.g. Lutton)"
-          {...register("town")}
-        />
-        {errors.town && <ErrorText>{errors.town.message}</ErrorText>}
-      </FormItem>
-      <FormItem>
-        <label htmlFor="userName">Region:</label>
-        <Dropdown
-          id="region"
-          data={regionsObj}
-          {...register("region", { required: "Region is required" })}
-        />
-              {errors.region && <ErrorText>{errors.region.message}</ErrorText>}
-     </FormItem>
-      <FormItem>
-        <label htmlFor="userName">Country:</label>
-        <Dropdown
-          id="country"
-          data={countriesObj}
-          {...register("country", { required: "Country is required" })}
-        />
-              {errors.country && <ErrorText>{errors.country.message}</ErrorText>}
-     </FormItem>
-      <button type="submit">Add user</button>
+
+      <ButtonWrap>
+        <Button type="submit">Add user</Button>
+      </ButtonWrap>
     </Form>
   );
 };

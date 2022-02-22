@@ -34,8 +34,8 @@ users: any[]
                 </div>
 
                 {
-                   users.map((user) => (
-                            <div className='table-row' key={user.id}>
+                   users.map((user, index) => (
+                            <div className='table-row' key={index}>
                             <div className="body-item">
                                {user.first_name} {user.last_name}
                             </div>
