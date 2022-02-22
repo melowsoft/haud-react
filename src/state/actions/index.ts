@@ -16,10 +16,21 @@ interface AddUserAction {
 }
 interface AddUserActionSuccess {
   type: ActionType.ADD_USER_SUCCESS;
-  payload: string[];
+  payload: any[];
 }
 interface AddUserActionError {
   type: ActionType.ADD_USER_ERROR;
+  payload: string;
+}
+interface GetUsersAction {
+  type: ActionType.GET_USERS;
+}
+interface GetUsersActionSuccess {
+  type: ActionType.GET_USERS_SUCCESS;
+  payload: any[];
+}
+interface GetUsersActionError {
+  type: ActionType.GET_USERS_ERROR;
   payload: string;
 }
 
@@ -29,4 +40,7 @@ export type Action =
 | SearchRepositoriesErrorAction
 | AddUserAction
 | AddUserActionSuccess
-| AddUserActionError;
+| AddUserActionError
+| GetUsersAction
+| GetUsersActionSuccess
+| GetUsersActionError;

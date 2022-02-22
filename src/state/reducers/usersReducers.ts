@@ -21,6 +21,12 @@ const reducer = (state: UsersState = initialState, action: Action
         case ActionType.ADD_USER_SUCCESS:
           return { loading: false, error: null, data: action.payload }
         case ActionType.ADD_USER_ERROR:
+          return { loading: false, error: action.payload, data: [...state.data] }
+        case ActionType.GET_USERS:
+          return { loading: true, error: null, data: [] }
+        case ActionType.GET_USERS_SUCCESS:
+          return { loading: false, error: null, data: action.payload }
+        case ActionType.GET_USERS_ERROR:
           return { loading: false, error: action.payload, data: [] }
         default:
           return state;

@@ -1,15 +1,22 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useActions } from "../../hooks/useAction"
 import UsersTable from '../UsersTable';
+import { useTypedSelector } from '../../hooks/useTypedSelector' 
 
 export const UserList = () => {
-    const { addUser } = useActions();
+    const { getUsers, addUser } = useActions();
+    const { data, error, loading } = useTypedSelector((state) => state.users)
 
+
+  useEffect(() => {
+      getUsers()
+
+  }, [])
 
     return (
         <>
-            <UsersTable />
-            {/* <button onClick={() => addUser()}> add user</button> */}
+            <UsersTable users={data}/>
+            <button onClick={() => addUser()}> add user</button>
         </>
     )
 }

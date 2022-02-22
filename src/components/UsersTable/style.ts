@@ -10,6 +10,13 @@ export const Wrapper = styled.div`
         align-items: center;
     }
 
+    .add-button {
+        float: right;
+        padding: 10px 20px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
     .controls {
         display: flex;
         flex-wrap: wrap;
@@ -94,7 +101,7 @@ export const Wrapper = styled.div`
 
     .table-header {
         display: grid;
-        grid-template-columns: 2fr 2fr 2fr 1fr 1fr;
+        grid-template-columns: 2fr 2fr 2fr 1fr 1fr 1fr;
         margin-top: 20px;
         width: 100%;
         height: 48px;
@@ -123,7 +130,7 @@ export const Wrapper = styled.div`
 
     .table-row {
         display: grid;
-        grid-template-columns: 2fr 2fr 2fr 1fr 1fr;
+        grid-template-columns: 2fr 2fr 2fr 1fr 1fr 1fr;
         align-items: center;
         padding-left: 25px;
         width: 1080px;

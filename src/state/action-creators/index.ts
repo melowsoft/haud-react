@@ -39,6 +39,35 @@ export const searchRepositories = (term: string) => {
   }
 }
 
+const retrieveUsers = async () => { 
+  const data = await getDocs(usersCollectionRef)
+  return data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+}
+
+export const getUsers = () => {
+  return async (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.GET_USERS
+    })
+
+    try {
+ 
+      const users = await retrieveUsers()
+
+     dispatch({
+       type: ActionType.GET_USERS_SUCCESS,
+       payload: users
+     }) 
+
+    } catch (err) {
+      dispatch({
+        type: ActionType.GET_USERS_ERROR,
+        payload: "Error occured"
+      })
+    }
+  }
+}
+
 export const addUser = () => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({
@@ -47,10 +76,9 @@ export const addUser = () => {
 
     try {
    
-      const data = await addDoc(usersCollectionRef, {
-        first_name: "christine",
-        last_name: "like",
-        email: "chris@mark.com",
+       await addDoc(usersCollectionRef, {
+        first_name: "Ben",
+        last_name: "bruce",
         phone: "1234567890",
         address_1: "123 Main St",
         address_2: "",
@@ -61,14 +89,14 @@ export const addUser = () => {
         contact_number: "1234567890",
       })
 
-      console.log(data, "from add user function")
+      const users = await retrieveUsers()
+      console.log(users, "from add user function")
+
+      dispatch({
+        type: ActionType.ADD_USER_SUCCESS,
+        payload: users
+      })
       
-
-    //  dispatch({
-    //   type: ActionType.ADD_USER_SUCCESS,
-    //   payload: data
-    // }) 
-
     } catch (err) {
       dispatch({
         type: ActionType.ADD_USER_ERROR,
