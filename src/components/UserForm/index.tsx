@@ -11,9 +11,8 @@ import {
 } from "./style";
 import { Country, State } from "country-state-city";
 import { Dropdown } from "../Select";
-import { User } from "../../state/actions";
 import { DocumentData } from "@firebase/firestore";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export type UserFormValues = {
   first_name: string;
@@ -36,14 +35,16 @@ const UserForm: FC<{
     handleSubmit,
     formState: { errors },
   } = useForm<UserFormValues>();
-  console.log(user, "in user form");
+  const history = useHistory();
 
   const countriesObj = useMemo(() => {
-    const empty = [{
-      value: "",
-      label: "Select Country",
-      id: "rtyuyutdfas",
-    }]
+    const empty = [
+      {
+        value: "",
+        label: "Select Country",
+        id: "rtyuyutdfas",
+      },
+    ];
     const newArr =
       Country.getAllCountries().map((country, index) => {
         return {
@@ -56,11 +57,13 @@ const UserForm: FC<{
     return countries;
   }, []);
   const regionsObj = useMemo(() => {
-    const empty = [{
-      value: "",
-      label: "Select Region",
-      id: "rtyuyuty",
-    }]
+    const empty = [
+      {
+        value: "",
+        label: "Select Region",
+        id: "rtyuyuty",
+      },
+    ];
     const newArr =
       State.getAllStates().map((state, index) => {
         return {
@@ -72,6 +75,8 @@ const UserForm: FC<{
     const regions = [...empty, ...newArr];
     return regions;
   }, []);
+
+  const navigateHome = () => history.replace("/");
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -163,8 +168,6 @@ const UserForm: FC<{
         </FormItem>
       </Divider>
 
-      
-
       <Divider>
         <FormItem>
           <label htmlFor="country">Country:</label>
@@ -208,9 +211,7 @@ const UserForm: FC<{
       </FormItem>
 
       <ButtonWrap>
-        <Link to="/">
-             <Button color="red">Cancel</Button>
-        </Link>
+        <Button color="red" onClick={() => navigateHome()}>Cancel</Button>
         <Button type="submit">Submit</Button>
       </ButtonWrap>
     </Form>
