@@ -38,6 +38,11 @@ const UserForm: FC<{
   console.log(user, "in user form");
 
   const countriesObj = useMemo(() => {
+    const empty = [{
+      value: "",
+      label: "Select Country",
+      id: "rtyuyutdfas",
+    }]
     const newArr =
       Country.getAllCountries().map((country, index) => {
         return {
@@ -46,9 +51,15 @@ const UserForm: FC<{
           id: index,
         };
       }) || [];
-    return newArr;
+    const countries = [...empty, ...newArr];
+    return countries;
   }, []);
   const regionsObj = useMemo(() => {
+    const empty = [{
+      value: "",
+      label: "Select Region",
+      id: "rtyuyuty",
+    }]
     const newArr =
       State.getAllStates().map((state, index) => {
         return {
@@ -57,15 +68,17 @@ const UserForm: FC<{
           id: index,
         };
       }) || [];
-    return newArr;
+    const regions = [...empty, ...newArr];
+    return regions;
   }, []);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Divider>
         <FormItem>
-          <label htmlFor="userName">First name:</label>
+          <label htmlFor="first_name">First name:</label>
           <Input
+            data-testid="first_name"
             defaultValue={user?.first_name}
             type="text"
             id="first_name"
@@ -77,7 +90,7 @@ const UserForm: FC<{
           )}
         </FormItem>
         <FormItem>
-          <label htmlFor="userName">Last name:</label>
+          <label htmlFor="last_name">Last name:</label>
           <Input
             defaultValue={user?.last_name}
             type="text"
@@ -93,7 +106,7 @@ const UserForm: FC<{
 
       <Divider>
         <FormItem>
-          <label htmlFor="userName">Address 1:</label>
+          <label htmlFor="address_1">Address 1:</label>
           <Input
             defaultValue={user?.address_1}
             type="text"
@@ -106,7 +119,7 @@ const UserForm: FC<{
           )}
         </FormItem>
         <FormItem>
-          <label htmlFor="userName">Address 2:</label>
+          <label htmlFor="address_2">Address 2:</label>
           <Input
             defaultValue={user?.address_2}
             type="text"
@@ -122,7 +135,7 @@ const UserForm: FC<{
 
       <Divider>
         <FormItem>
-          <label htmlFor="userName">Town:</label>
+          <label htmlFor="town">Town:</label>
           <Input
             defaultValue={user?.town}
             type="text"
@@ -133,7 +146,7 @@ const UserForm: FC<{
           {errors.town && <ErrorText>{errors.town.message}</ErrorText>}
         </FormItem>
         <FormItem>
-          <label htmlFor="userName">Region:</label>
+          <label htmlFor="region">Region:</label>
           <Dropdown
             initialValue={user?.region}
             id="region"
@@ -148,7 +161,7 @@ const UserForm: FC<{
 
       <Divider>
         <FormItem>
-          <label htmlFor="userName">Country:</label>
+          <label htmlFor="country">Country:</label>
           <Dropdown
             initialValue={user?.country}
             id="country"
@@ -158,7 +171,7 @@ const UserForm: FC<{
           {errors.country && <ErrorText>{errors.country.message}</ErrorText>}
         </FormItem>
         <FormItem>
-          <label htmlFor="userName">Post code:</label>
+          <label htmlFor="post_code">Post code:</label>
           <Input
             defaultValue={user?.post_code}
             type="text"
@@ -172,7 +185,7 @@ const UserForm: FC<{
         </FormItem>
       </Divider>
       <FormItem>
-        <label htmlFor="userName">Contact Number:</label>
+        <label htmlFor="contact_number">Contact Number:</label>
         <Input
           defaultValue={user?.contact_number}
           type="text"
