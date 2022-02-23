@@ -24,13 +24,15 @@ width: 100%;
 display: flex;
 justify-content: center;
 `
-export const Button = styled.button`
+export const Button = styled.button<{color?: string}>`
 padding: 10px 40px;
 border-radius: 4px;
 border: 1px solid #e6e6e6;
 cursor: pointer;
 background: transparent;
 font-weight: bold;
+margin: 0 10px;
+color: ${props => props.color ? props.color : 'none'};
 
 &:hover {
     background: #e6e6e6;

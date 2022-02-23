@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import { store } from './state';
 import './index.css';
 
+import 'react-loading-skeleton/dist/skeleton.css'
+
 ReactDOM.render(
   <React.StrictMode>
     <Routes>

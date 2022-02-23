@@ -13,6 +13,7 @@ import { Country, State } from "country-state-city";
 import { Dropdown } from "../Select";
 import { User } from "../../state/actions";
 import { DocumentData } from "@firebase/firestore";
+import { Link } from "react-router-dom";
 
 export type UserFormValues = {
   first_name: string;
@@ -93,6 +94,7 @@ const UserForm: FC<{
           <label htmlFor="last_name">Last name:</label>
           <Input
             defaultValue={user?.last_name}
+            data-testid="last_name"
             type="text"
             id="last_name"
             placeholder="Last name (e.g. Doe)"
@@ -109,6 +111,7 @@ const UserForm: FC<{
           <label htmlFor="address_1">Address 1:</label>
           <Input
             defaultValue={user?.address_1}
+            data-testid="address_1"
             type="text"
             id="address_1"
             placeholder="Address 1 (e.g. 123 Main St)"
@@ -122,6 +125,7 @@ const UserForm: FC<{
           <label htmlFor="address_2">Address 2:</label>
           <Input
             defaultValue={user?.address_2}
+            data-testid="address_2"
             type="text"
             id="address_2"
             placeholder="Address 2 (e.g. 123 Main St)"
@@ -138,6 +142,7 @@ const UserForm: FC<{
           <label htmlFor="town">Town:</label>
           <Input
             defaultValue={user?.town}
+            data-testid="town"
             type="text"
             id="town"
             placeholder="Town (e.g. Lutton)"
@@ -149,6 +154,7 @@ const UserForm: FC<{
           <label htmlFor="region">Region:</label>
           <Dropdown
             initialValue={user?.region}
+            data-testid="region"
             id="region"
             data={regionsObj}
             {...register("region", { required: "Region is required" })}
@@ -164,6 +170,7 @@ const UserForm: FC<{
           <label htmlFor="country">Country:</label>
           <Dropdown
             initialValue={user?.country}
+            data-testid="country"
             id="country"
             data={countriesObj}
             {...register("country", { required: "Country is required" })}
@@ -174,6 +181,7 @@ const UserForm: FC<{
           <label htmlFor="post_code">Post code:</label>
           <Input
             defaultValue={user?.post_code}
+            data-testid="post_code"
             type="text"
             id="post_code"
             placeholder="Post code (e.g. 12345)"
@@ -188,6 +196,7 @@ const UserForm: FC<{
         <label htmlFor="contact_number">Contact Number:</label>
         <Input
           defaultValue={user?.contact_number}
+          data-testid="contact_number"
           type="text"
           id="contact_number"
           placeholder="Contact number (e.g. 017843438993)"
@@ -199,6 +208,9 @@ const UserForm: FC<{
       </FormItem>
 
       <ButtonWrap>
+        <Link to="/">
+             <Button color="red">Cancel</Button>
+        </Link>
         <Button type="submit">Submit</Button>
       </ButtonWrap>
     </Form>

@@ -15,7 +15,7 @@ const UserList = () => {
 
   return (
     <>
-      <UsersTable users={data} deleteUser={deleteUser} />
+          <UsersTable users={data} deleteUser={deleteUser} loading={loading}/>
     </>
   );
 };

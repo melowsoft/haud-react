@@ -15,6 +15,7 @@ export const Wrapper = styled.div`
         padding: 10px 20px;
         font-weight: bold;
         cursor: pointer;
+        margin-bottom: 50px;
     }
 
     .controls {
@@ -187,7 +188,8 @@ export const Wrapper = styled.div`
     }
 
     .web-table {
-        width: 100%
+        width: 100%;
+        margin-top: 40px;
     }
 
     .table-item {
