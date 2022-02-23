@@ -126,7 +126,7 @@ export const Wrapper = styled.div`
         line-height: 19px;
         letter-spacing: 0.1px;
         color: #2A2A2A;
-      
+      list-style: none;
     }
 
     .table-row {
@@ -140,7 +140,7 @@ export const Wrapper = styled.div`
         box-shadow: 0px 1px 0px #EBEBEB;
         margin-top: 20px;
         width: 100%;
-        cursor: pointer;
+  
     }
 
     .body-item {
@@ -149,6 +149,7 @@ export const Wrapper = styled.div`
         font-size: 15px;
         line-height: 22px;
         color: #2A2A2A;
+        list-style: none;
     }
 
     .more-button {
@@ -194,6 +195,20 @@ export const Wrapper = styled.div`
 
     .table-item {
         padding: 10px;
+    }
+
+    .edit-btn {
+        margin-right: 7px;
+        color: blue;
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    .delete-btn { 
+        color: red;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 12px;
     }
 
     .item-row {

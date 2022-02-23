@@ -24,16 +24,16 @@ const UsersTable: FC<UsersTableProps> = ({ users, deleteUser, loading }) => {
         ) : (
           <>
             <div className="table-header">
-              <div className="header-item">Name</div>
+              <li className="header-item">Name</li>
 
-              <div className="header-item">Address</div>
-              <div className="header-item">Contact Number</div>
+              <li className="header-item">Address</li>
+              <li className="header-item">Contact Number</li>
 
-              <div className="header-item">town</div>
-              <div className="header-item">region</div>
+              <li className="header-item">town</li>
+              <li className="header-item">region</li>
 
-              <div className="header-item">Country</div>
-              <div className="header-item">Post code</div>
+              <li className="header-item">Country</li>
+              <li className="header-item">Post code</li>
             </div>
 
             {users.map((user: DocumentData) => (
@@ -41,18 +41,18 @@ const UsersTable: FC<UsersTableProps> = ({ users, deleteUser, loading }) => {
                 <div className="body-item">
                   {user.first_name} {user.last_name}
                 </div>
-                <div className="body-item">{user.address_1}</div>
-                <div className="body-item">{user.contact_number}</div>
-                <div className="body-item">{user.town}</div>
-                <div className="body-item">{user.region}</div>
-                <div className="body-item">{user.country}</div>
-                <div className="body-item">{user.post_code}</div>
-                <div className="body-item">
+                <li className="body-item">{user.address_1}</li>
+                <li className="body-item">{user.contact_number}</li>
+                <li className="body-item">{user.town}</li>
+                <li className="body-item">{user.region}</li>
+                <li className="body-item">{user.country}</li>
+                <li className="body-item">{user.post_code}</li>
+                <li className="body-item">
                   <Link to={`/edit-user/${user.id}`}>
-                    <span style={{ marginRight: 5 }}>Edit</span>
+                    <span className="edit-btn">Edit</span>
                   </Link>
-                  <span onClick={() => deleteUser(user.id)}>Delete</span>
-                </div>
+                  <span onClick={() => deleteUser(user.id)} className="delete-btn">Delete</span>
+                </li>
               </div>
             ))}
           </>
