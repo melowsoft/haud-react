@@ -1,10 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import {  render, screen } from "@testing-library/react";
 import UsersTable from "..";
 import { DocumentData } from "@firebase/firestore";
+import userEvent from "@testing-library/user-event";
 
-test("renders the infos on the table correctly", () => {
-  // mock data  
-  const users: DocumentData[] = [
+ // mock data  
+ const users: DocumentData[] = [
     {
       id: "fdsfsafsafds",
       first_name: "John",
@@ -31,6 +31,7 @@ test("renders the infos on the table correctly", () => {
     },
   ];
 
+beforeEach(() => { 
   render(
     <UsersTable
       users={users}
@@ -38,10 +39,18 @@ test("renders the infos on the table correctly", () => {
       deleteUser={async () => console.log("user deleted!!")}
     />
   );
-    
+})
+
+test("renders the infos on the table correctly", () => {
     //retrieve all table rows
     const tableRowElements = screen.getAllByRole("row") 
     expect(tableRowElements[0]).toHaveTextContent(users[0].first_name)
     expect(tableRowElements[0]).toHaveTextContent(users[0].last_name)
     expect(tableRowElements[0]).toHaveTextContent(users[0].region)
 });
+
+test("Add user button should be rendered correctly", () => { 
+    // retrieve the add user button
+    const addUserButton = screen.getByRole("button")
+    expect(addUserButton).toHaveTextContent("Add user")
+})

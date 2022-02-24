@@ -89,6 +89,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="first_name">First name:</label>
           <Input
+            role={'textbox'}
             data-testid="first_name"
             defaultValue={user?.first_name}
             type="text"
@@ -103,6 +104,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="last_name">Last name:</label>
           <Input
+            role={'textbox'}
             defaultValue={user?.last_name}
             data-testid="last_name"
             type="text"
@@ -120,6 +122,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="address_1">Address 1:</label>
           <Input
+            role={'textbox'}
             defaultValue={user?.address_1}
             data-testid="address_1"
             type="text"
@@ -134,6 +137,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="address_2">Address 2:</label>
           <Input
+            role={'textbox'}
             defaultValue={user?.address_2}
             data-testid="address_2"
             type="text"
@@ -151,6 +155,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="town">Town:</label>
           <Input
+            role={'textbox'}
             defaultValue={user?.town}
             data-testid="town"
             type="text"
@@ -188,6 +193,7 @@ const UserForm: FC<{
         <FormItem>
           <label htmlFor="post_code">Post code:</label>
           <Input
+            role={'textbox'}
             defaultValue={user?.post_code}
             data-testid="post_code"
             type="text"
@@ -203,6 +209,7 @@ const UserForm: FC<{
       <FormItem>
         <label htmlFor="contact_number">Contact Number:</label>
         <Input
+          role={'textbox'}
           defaultValue={user?.contact_number}
           data-testid="contact_number"
           type="text"

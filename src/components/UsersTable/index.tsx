@@ -21,8 +21,13 @@ const UsersTable: FC<UsersTableProps> = ({ users, deleteUser, loading }) => {
 
   return (
     <Wrapper>
-        <button onClick={navigateToAddUser} className="add-button">Add user</button>
-    
+      <button
+        role={"button"}
+        onClick={navigateToAddUser}
+        className="add-button"
+      >
+        Add user
+      </button>
 
       <div className="web-table">
         {loading ? (
