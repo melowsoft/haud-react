@@ -51,7 +51,6 @@ useEffect(() => {
   );
 
   
-
   return (
     <Wrapper>
       <FormTitle>Edit User Details</FormTitle>

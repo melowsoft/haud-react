@@ -202,6 +202,7 @@ export const Wrapper = styled.div`
         color: blue;
         font-weight: bold;
         font-size: 12px;
+        cursor: pointer;
     }
 
     .delete-btn { 

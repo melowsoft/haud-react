@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import  { forwardRef } from "react";
 import { Select } from "../styled/select";
 
 
@@ -17,7 +17,6 @@ export const Dropdown = forwardRef<HTMLSelectElement, DropdownProps>(
         ref={ref}
         defaultValue={initialValue || data[0].value}
       >
-        {/* <option value="">Select Test Limit</option> */}
         {data?.map((item) => (
           <option key={item.id} value={item.value}>
             {item.label}

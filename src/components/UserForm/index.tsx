@@ -12,7 +12,7 @@ import {
 import { Country, State } from "country-state-city";
 import { Dropdown } from "../Select";
 import { DocumentData } from "@firebase/firestore";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export type UserFormValues = {
   first_name: string;
@@ -35,8 +35,10 @@ const UserForm: FC<{
     handleSubmit,
     formState: { errors },
   } = useForm<UserFormValues>();
+
   const history = useHistory();
 
+  //Countries formatter for country dropdown
   const countriesObj = useMemo(() => {
     const empty = [
       {
@@ -56,6 +58,8 @@ const UserForm: FC<{
     const countries = [...empty, ...newArr];
     return countries;
   }, []);
+
+  //States formatter for state dropdown
   const regionsObj = useMemo(() => {
     const empty = [
       {
@@ -76,6 +80,7 @@ const UserForm: FC<{
     return regions;
   }, []);
 
+  //Navigator function
   const navigateHome = () => history.replace("/");
 
   return (
@@ -211,7 +216,9 @@ const UserForm: FC<{
       </FormItem>
 
       <ButtonWrap>
-        <Button color="red" onClick={() => navigateHome()}>Cancel</Button>
+        <Button color="red" onClick={() => navigateHome()}>
+          Cancel
+        </Button>
         <Button type="submit">Submit</Button>
       </ButtonWrap>
     </Form>
